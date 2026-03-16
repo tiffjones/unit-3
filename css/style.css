@@ -1,1 +1,18 @@
-/*Add CSS styles here*/
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 0.9em; /*90% of parent element (svg) size*/
+}
+
+.title {
+    font-family: serif;
+    font-size: 1.5em;
+    font-weight: bold;
+}
