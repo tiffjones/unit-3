@@ -14,25 +14,95 @@
 
 .map {
     border: medium solid #999;
-    margin: 5px 0 0 0;
+    margin: 10px 0 0 20px;
     background:rgb(66, 53, 59);
 }
 
+.mapTitle {
+    font-family: serif;
+    font-size: 1.25em;
+    fill: #a4a4a4;
+    letter-spacing: .5px;
+}
+
+.gratLines {
+    fill: none;
+    stroke: #4f444e;
+    stroke-width: 1px;
+}
+    
+.chart {
+    float: right;
+    margin: 7px 20px 0 0;
+
+}
+ /* from bubble chart
 .chart {
     background-color:rgb(66, 53, 59);
     border: medium solid #999;
     float: right;
-    margin: 5px 0 0 0;
+    margin: 10px 20px 0 0;
+} */
+
+.chartTitle {
+    font-family: serif;
+    font-size: 1.25em;
+    fill: #a4a4a4;
 }
 
+.chartBackground {
+    fill: rgb(66, 53, 59);
+}
+
+.chartFrame {
+    fill: none;
+    stroke: #999;
+    stroke-width: 3px;
+    shape-rendering: crispEdges;
+}
+
+/*
 .yaxis {
     color: #a4a4a4;
 }
 
 .xaxis {
     color: #a4a4a4;
+} */
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #a4a4a4;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
 }
 
-.mapTitle {
-    color: #a4a4a4;
+.axis text {
+    font-family: sans-serif;
+    font-size: 0.8em;
+    fill: #a4a4a4;
+}
+
+.numbers {
+    fill: white;
+    font-family: sans-serif;
+    font-size: small;
+}
+
+.dropdown {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    z-index: 10;
+    font-family: sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 2px;
+    border: 1px solid #999;
+    box-shadow: 2px 2px 4px #999;
+}
+
+option {
+    font-weight: normal;
 }

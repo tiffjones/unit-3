@@ -235,7 +235,7 @@
         };
 
         //cluster data using ckmeans clustering algorithm to create natural breaks
-        var clusters = ss.ckmeans(domainArray, 8);
+        var clusters = ss.ckmeans(domainArray, 5);
         //reset domain array to cluster minimums
         domainArray = clusters.map(function(d){
             return d3.min(d);
@@ -263,7 +263,7 @@
                 //where primary keys match, transfer csv data to geojson properties object
                 if (geojsonKey == csvKey) {
                     //assign all attributes and values
-                    attrArray.forEach(function (attr) {
+                    attrArray.forEach(function(attr) {
                         var val = parseFloat(csvState[attr]); //get csv attribute value
                         geojsonProps[attr] = val; //assign attribute and value to geojson properties
                     });
@@ -271,7 +271,7 @@
             }
         }
         return states48;
-    }
+    };
 
     function setEnumerationUnits(states48, map, path, colorScale) {
         //add States to map
