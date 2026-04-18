@@ -3,9 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-            <title>The Ground We Stand On</title>
+            <title>Between Land and Air</title>
 
-        <!--put your external stylesheet links here-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
         <!--[if IE<9]>
             <link rel="stylesheet" href="css/style.ie.css">
@@ -16,17 +20,24 @@
         
     </head>
 
-    <body>
+    <body class = "background">
         <!--put your initial page content here-->
-        <h3>The Ground We Stand On</h3>
-
+        <div class="panel"></div>
+        <div class="container"></div>
+        <div class="infoPanel">
+            <p>Sources: <a href="https://www.ers.usda.gov/data-products/major-land-uses/documentation-for-5-year-update" target="_blank">
+                U.S. Department of Agriculture, Economic Research Service. (2024). Major land uses data product.</a> and 
+                <a href="https://www.eia.gov/state/seds/seds-data-complete.php?sid=US#Carbon%20dioxide%20(CO2)%20emissions%20from%20energy%20consumption" target="_blank">
+                    EIA SState Energy Data System (SEDS): 1960-2023 (complete)</a>  |  Mapped by Tiffany Jones 2026</p>
+        </div>
+    
         <!--you can also use this space for internal scripts;
         place these within <script> tags-->
         <!--link to D3 and external scripts-->
         <script src='https://unpkg.com/simple-statistics@7.0.7/dist/simple-statistics.min.js'></script>
         <script type="text/javascript" src="lib/d3.v7.min.js"></script>
         <script type="text/javascript" src="lib/topojson.min.js"></script>
-        <script type="text/javascript" src="js/main_take2.js"></script>
+        <script type="text/javascript" src="js/main_bar.js"></script>
 
     </body>
 </html>

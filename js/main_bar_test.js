@@ -1,6 +1,8 @@
 /* TO DO:
 - figure out how to add readible names to drop down and chart title
 - figure out how to update chart scale depending on variable
+- fit chart title back in frame
+- position dropdown menu
 */
 
 //contain entire code into a function to make all attributes "local"
@@ -11,9 +13,10 @@
     //var attrArray = ["Crop_pA","Grass_pA","Forest_pA","Special_pA", "Urban_pA", "Misc_pA"]; 
     var attrNameArray = ["CO2", "Population Density", "Cropland", "Grassland", "Forest", "Special Use", "Urban", "Miscellaneous"]
     var expressed = attrArray[0]; //initial attribute in array
+    var expressedName = attrNameArray[0];
 
     //chart frame dimensions
-    var chartWidth = window.innerWidth * 0.425,
+    var chartWidth = window.innerWidth * 0.5,
         chartHeight = 473,
         leftPadding = 25,
         rightPadding = 2,
@@ -46,10 +49,10 @@
         //set projection
         var projection = d3.geoAlbers()
             // center coord of map (-98.58,39.83)
-            .center([0,39.83]) //central meridian, lat (set lon to 0 to prevent distortion for conic proj, lat)
-            .rotate([98.58,0,0]) //lon, lat, roll (center lon as first measurement, lat set to 0)
+            .center([0,39]) //central meridian, lat (set lon to 0 to prevent distortion for conic proj, lat)
+            .rotate([97,0,0]) //lon, lat, roll (center lon as first measurement, lat set to 0)
             .parallels([28.66, 45.24]) //standard parallels
-            .scale(900) //factor by which distances are multiplied
+            .scale([width/.75]) //factor by which distances are multiplied
             .translate([width/2, height/2]); //places map center in the center of the svg
 
         var path = d3.geoPath().projection(projection); //pass projection to generator
@@ -131,37 +134,50 @@
     function changeAttribute(attribute, csvData){
         expressed = attribute; //change expressed attribute
 
-        //recreate color scale
+        //recreate the color scale
         var colorScale = makeColorScale(csvData);
 
-        //recolor enumeration units
-        var state = d3.selectAll(".state").style("fill", function(d){
-            var value = d.properties[expressed];
-            if (value) {
-                return colorScale(value);
-            } else {
-                return "#ccc";
-            }
-        });
+        var state = d3.selectAll(".state")
+            .transition()
+            .duration(1000)
+            .style("fill", function(d){
+                var value = d.properties[expressed];
+                if(value) {
+                    return colorScale(value);
+                } else {
+                    return "#ccc";
+                }
+            });
+
         var bars = d3.selectAll(".bar")
+            //sort bars
             .sort(function(a,b){
                 return b[expressed]-a[expressed];
-        });
-
+            })
+            .transition()
+            .delay(function(d,i){
+                return i * 20
+            })
+            .duration(500);
+            
         updateChart(bars, csvData.length, colorScale);
     }; //end of changeAttribute function
 
     //position, size and color bars in chart
     function updateChart(bars, n, colorScale){
+        //set position of bars on teh x axis
         bars.attr("x", function(d,i){
             return i * (chartInnerWidth / n) + leftPadding;
         })
+        //calc height of y axis
         .attr("height", function(d, i){
             return 463 - yScale(parseFloat(d[expressed]));
         })
+        //calc y axis value based on attribute values
         .attr("y", function(d,i){
             return yScale(parseFloat(d[expressed])) + topBottomPadding;
         })
+        //assign color based on attribute values/colorScale
         .style("fill", function(d){
             var value = d[expressed];
             if(value){
@@ -255,14 +271,27 @@
                     return "state " + d.properties.NAME; //accesses Name attribute of each state
                 })
                 .attr("d", path)
-                    .style("fill", function(d){
-                        var value = d.properties[expressed];
-                        if(value) {
-                            return colorScale(d.properties[expressed]);
-                        } else {
-                            return "#ccc";
-                        }
+                .style("fill", function(d){
+                    var value = d.properties[expressed];
+                    if(value) {
+                        return colorScale(value);
+                    } else {
+                        return "#ccc";
+                    }
+                })
+                .on("mouseover", function(event,d) {
+                    highlight(d.properties);
+                    console.log("highlighted")//check if it's working
+                })
+                .on("mouseout", function(event,d) {
+                    dehighlight(d.properties)
+                    console.log("dehighlighted");
                 });
+
+        // descriptor for each state path
+        var desc = state.append("desc")
+            .text('{"stroke": "#17012f", "stroke-width": "1px"}');
+
     }; //end of setEnumerationUnits function
 
     //create chart
@@ -288,16 +317,27 @@
             .enter()
             .append("rect")
             .sort(function(a, b){
-                return b[expressed]-a[expressed]
+                return b[expressed]-a[expressed];
             })
             .attr("class", function(d){
                 return "bar " + d.NAME;
             })
-            .attr("width", chartInnerWidth / csvData.length - 1);
+            .attr("width", chartInnerWidth / csvData.length - 1)
+            .on("mouseover", function(event,d) {
+                highlight(d)
+                console.log("chart highlight");
+            })
+            .on("mouseout", function(event,d) {
+                dehighlight(d)
+                console.log("chart dehighlight");
+            });
+        
+        var desc = bars.append("desc")
+            .text('{"stroke": "none", "stroke-width": "0px"}');
 
         var chartTitle = chart.append("text")
             .attr("text-anchor", "middle") //align text
-            .attr("x", [chartInnerWidth/2]) //set x
+            .attr("x", [(chartWidth)/2]) //set x
             .attr("y", 40)
             .attr("class", "chartTitle")
             .text("Amount of " + attrNameArray[0] + " in each State");
@@ -341,5 +381,53 @@
                 return d[expressed];
             }); */
     }; //end of setChart function
+
+    function highlight (props) {
+    //update stroke color and width of state when selected
+    var selected = d3.selectAll("." + props.NAME)
+        .raise()
+        .style("stroke", "yellow")
+        .style("stroke-width", "2")
+        setLabel(props);
+    };
+
+    function dehighlight(props) {
+        var selected = d3.selectAll("." + props.NAME)
+            .style("stroke", function(){
+                return getStyle(this, "stroke")
+            })
+            .style("stroke-width", function(){
+                return getStyle(this, "stroke-width")
+            
+            });
+
+        function getStyle(element, styleName){
+            var styleText = d3.select(element)
+                .select("desc")
+                .text();
+            
+            var styleObject = JSON.parse(styleText);
+
+            return styleObject[styleName];
+        };
+        
+        d3.select("infolabel")
+            .remove();
+    };
+
+    function setLabel(props){
+        var labelAttribute = "<h1>" + props[expressed] +
+            "</h1><b>" + expressed + "</b>";
+
+        var infolabel = d3.select("body")
+            .append("div")
+            .attr("class", "infolabel")
+            .attr("id", props.NAME + "_label")
+            .html(labelAttribute);
+
+        var stateName = infolabel.append("div")
+            .attr("class", "labelname")
+            .html(props.name);
+    };
 
 })(); //call main function

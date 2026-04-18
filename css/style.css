@@ -1,9 +1,61 @@
-/*
-.map {
-    border: 2px solid #e9e9e9;
-    margin: 10px 0 0 20px;
-    background:#e9e9e9;
-} */
+
+/* All links will be hotpink */
+a {
+  color: #a8a1a7;
+}
+
+.background {
+    background:#1a011c;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.head {
+    margin: 0 0 0 5px;
+    text-align: left;
+    color: #c15ed3;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.subhead {
+    margin: 0 0 30px 5px;
+    text-align: left;
+    color: #a8a1a7;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: .3px;
+}
+
+.menuTitle {
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #ffffff;
+    text-align: center;
+    display: inline-block;
+    margin: 0 0 0 20px;
+}
+
+.infoPanel {
+    color: #a8a1a7;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: .7em;
+    padding-left: 20px;
+}
+
+.panel {
+    margin: 0 0 0 0;
+    height: 90px;
+    /*border: thin solid #999;*/
+    background:#1a011c;
+    padding: 10px 20px 40px 20px;
+}
 
 .state {
     stroke: #17012f;
@@ -13,13 +65,22 @@
 }
 
 .map {
-    border: medium solid #999;
-    margin: 10px 0 0 20px;
-    background:rgb(66, 53, 59);
+   /* border: medium solid #999;*/
+    float: center;
+    margin: 0 0 0 0;
+    background:rgba(66, 53, 59, 0);
+}
+
+.container {
+    margin: 0;
+    height: 500px;
+    background:none;
+    border: 5px solid #1a011c;
+    background-color: rgb(43, 41, 42);
 }
 
 .mapTitle {
-    font-family: serif;
+    font-family: "Lato", sans-serif;
     font-size: 1.25em;
     fill: #a4a4a4;
     letter-spacing: .5px;
@@ -32,77 +93,82 @@
 }
     
 .chart {
-    float: right;
-    margin: 7px 20px 0 0;
-
+    margin: 20px 0 0 0;
+    padding-left: 20px;
+    float: left;
 }
- /* from bubble chart
-.chart {
-    background-color:rgb(66, 53, 59);
-    border: medium solid #999;
-    float: right;
-    margin: 10px 20px 0 0;
-} */
 
 .chartTitle {
-    font-family: serif;
-    font-size: 1.25em;
-    fill: #a4a4a4;
+    font-family: "Lato", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 1em;
+    fill: #a8a1a7;
 }
 
 .chartBackground {
-    fill: rgb(66, 53, 59);
+    fill: rgba(66, 53, 59, 0);
 }
 
 .chartFrame {
     fill: none;
-    stroke: #999;
+    /*stroke: #999;*/
     stroke-width: 3px;
     shape-rendering: crispEdges;
 }
 
-/*
-.yaxis {
-    color: #a4a4a4;
-}
-
-.xaxis {
-    color: #a4a4a4;
-} */
-
 .axis path,
 .axis line {
     fill: none;
-    stroke: #a4a4a4;
+    stroke: #695d6847;
     stroke-width: 1px;
     shape-rendering: crispEdges;
 }
 
 .axis text {
-    font-family: sans-serif;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
     font-size: 0.8em;
-    fill: #a4a4a4;
-}
-
-.numbers {
-    fill: white;
-    font-family: sans-serif;
-    font-size: small;
+    letter-spacing: .05em;
+    fill: #a8a1a7;
 }
 
 .dropdown {
-    position: absolute;
-    top: 30px;
-    left: 40px;
+    margin-left: 40px;
     z-index: 10;
-    font-family: sans-serif;
-    font-size: 1em;
-    font-weight: bold;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: .9em;
     padding: 2px;
     border: 1px solid #999;
-    box-shadow: 2px 2px 4px #999;
+    display: inline-block
+    /*box-shadow: 2px 2px 4px #999;*/
 }
 
-option {
+.option {
     font-weight: normal;
+}
+
+.infolabel {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: .8em;
+    position: absolute;
+    z-index: 10;
+    min-width: 100px;
+    max-width: 200px;
+    color: #ffff;
+    background-color: #1a011c;
+    border: solid thin #695d68;
+    padding: 5px 10px;
+    top: 525px;
+    left: 700px;
+}
+
+.infolabel h1 {
+    padding: 0;
+    display: inline-block;
+    line-height: .1em;
 }
