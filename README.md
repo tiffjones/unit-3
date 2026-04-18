@@ -2,9 +2,6 @@
 
 ### **Author:** Tiffany Jones
 
-### **Link:**
-* [Is it Safe to Swim?](https://tiffjones.github.io/unit-2/Lab1/)
-
 ### **Dependencies:**
 * [d3 7.9.0](https://d3js.org/)
 
